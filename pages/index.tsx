@@ -6,6 +6,7 @@ import styles from '@/styles/Home.module.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export default function Home(): JSX.Element {
+  const a = 2;
   return (
     <>
       <Head>
@@ -48,6 +49,7 @@ export default function Home(): JSX.Element {
             height={37}
             priority
           />
+          <span>My value = {a}</span>
         </div>
 
         <div className={styles.grid}>

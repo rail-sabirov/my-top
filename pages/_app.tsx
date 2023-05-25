@@ -15,7 +15,7 @@ function App({ Component, pageProps }: AppProps): JSX.Element {
           rel="stylesheet"
         />
       </Head>
-      <Component {...pageProps} />;
+      <Component {...pageProps} />
     </>
   );
 }

@@ -8,6 +8,11 @@ export default function Home(): JSX.Element {
 
   const [counter, setCounter] = useState<number>(0);
 
+  // Контролируем изменения counter
+  useEffect(() => {
+    console.log(`Counter: ${counter}`);
+  }, [counter]);
+
   return (<>
     <Htag tag='h1'>{counter}</Htag>
     <Button appearance='primary' 

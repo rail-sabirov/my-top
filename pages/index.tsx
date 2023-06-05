@@ -1,12 +1,20 @@
 import { Inter } from 'next/font/google';
 import { Button, Htag, P, Tag } from '@/components';
+import { useEffect, useState } from 'react';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export default function Home(): JSX.Element {
+
+  const [counter, setCounter] = useState<number>(0);
+
   return (<>
-    <Htag tag='h1'>Text</Htag>
-    <Button appearance='primary' className='my-class' arrow='right'>Кнопка</Button>
+    <Htag tag='h1'>{counter}</Htag>
+    <Button appearance='primary' 
+      className='my-class' 
+      arrow='right'
+      onClick={() => setCounter(x => x + 1)}
+      >Кнопка</Button>
     <Button appearance='ghost' arrow='down'>Кнопка 2</Button>
     <P size='s'>Small</P>
     <P>Medium</P>
@@ -21,3 +29,4 @@ export default function Home(): JSX.Element {
     <Tag color="primary" size='m' href="https://test2.tst">Tag primary size 'medium'</Tag>
   </>);
 }
+

@@ -33,7 +33,7 @@ export default function Home(): JSX.Element {
     <Tag color="primary" size='s' href="https://test.tst">Tag primary size 'small'</Tag>
     <Tag color="primary" size='m' href="https://test2.tst">Tag primary size 'medium'</Tag>
 
-    <Rating rating={3}></Rating>
+    <Rating rating={3} isEditable></Rating>
   </>);
 }
 

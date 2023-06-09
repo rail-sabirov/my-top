@@ -36,6 +36,8 @@ export const Rating = ({
           onMouseEnter={() => changeDisplay(starIndex + 1)}
           // Когда мышь уходит из зоны звезды, возвращаем рейтинг
           onMouseLeave={() => changeDisplay(rating)}
+          // кликаем и меняем рейтинг
+          onClick={() => onClick(starIndex + 1)}
         />
       );
     });
@@ -51,6 +53,18 @@ export const Rating = ({
     }
 
     generateStarsLayout(i);
+  };
+
+  // Функция для клика
+  const onClick = (starIndex: number) => {
+    // Кроме разрешения на изменение, мы должны проверить
+    // отправлена ли функция на изменение рейтинга в атрибуте тега setRating
+    if (!isEditable || !setRating) {
+      return;
+    }
+
+    // Вызывается функция из верхнего уровня (index.jsx там где состояние рейтинга)
+    setRating(starIndex);
   };
 
   // Возвращаем результат работы компонента

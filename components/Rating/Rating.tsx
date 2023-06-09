@@ -2,7 +2,7 @@ import { RaitingProps } from './Rating.props';
 
 import styles from './Rating.module.css';
 import cn from 'classnames';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, KeyboardEvent } from 'react';
 import SvgStarIcon from './star.svg';
 
 export const Rating = ({
@@ -38,6 +38,10 @@ export const Rating = ({
           onMouseLeave={() => changeDisplay(rating)}
           // кликаем и меняем рейтинг
           onClick={() => onClick(starIndex + 1)}
+          // Перемещение по странице с помощью клавиши tab
+          tabIndex={isEditable ? 0 : -1}
+          // Задание рейтинга с помощью пробела, когда табом выбрали звезду
+          onKeyDown={(e: KeyboardEvent<SVGAElement>) => isEditable && handleSpace(starIndex + 1, e)}
         />
       );
     });
@@ -65,6 +69,16 @@ export const Rating = ({
 
     // Вызывается функция из верхнего уровня (index.jsx там где состояние рейтинга)
     setRating(starIndex);
+  };
+
+  // Функция для отработки нажатия пробелом
+  const handleSpace = (i: number, e: KeyboardEvent<SVGAElement>) => {
+    if (e.code != 'Space' || !setRating) {
+      return;
+    }
+
+    // Задаем рейтинг с помощью функции родительского компонента
+    setRating(i);
   };
 
   // Возвращаем результат работы компонента

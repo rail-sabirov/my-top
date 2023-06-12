@@ -1,10 +1,11 @@
 import { Inter } from 'next/font/google';
 import { Button, Htag, P, Rating, Tag } from '@/components';
 import { useEffect, useState } from 'react';
+import { withLayout } from '@/layout/Layout';
 
 const inter = Inter({ subsets: ['latin'] });
 
-export default function Home(): JSX.Element {
+function Home(): JSX.Element {
   const [counter, setCounter] = useState<number>(0);
 
   // Тест: Первоначальный рейтиг
@@ -50,3 +51,6 @@ export default function Home(): JSX.Element {
     </>
   );
 }
+
+// Оборачиваем основной компонент в обертку HOC
+export default withLayout(Home);

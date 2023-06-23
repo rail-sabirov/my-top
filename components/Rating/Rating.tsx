@@ -27,7 +27,7 @@ export const Rating = ({
     // Перебераем каждую звездочку и генерим SVG элемент с подкрашиванием
     const updatedArray = starsArray.map((starElement: JSX.Element, starIndex: number) => {
       return (
-        <SvgStarIcon
+        <span
           className={cn(styles.star, {
             [styles.filled]: starIndex < currentRating,
             [styles.editable]: isEditable,
@@ -38,11 +38,16 @@ export const Rating = ({
           onMouseLeave={() => changeDisplay(rating)}
           // кликаем и меняем рейтинг
           onClick={() => onClick(starIndex + 1)}
-          // Перемещение по странице с помощью клавиши tab
-          tabIndex={isEditable ? 0 : -1}
-          // Задание рейтинга с помощью пробела, когда табом выбрали звезду
-          onKeyDown={(e: KeyboardEvent<SVGAElement>) => isEditable && handleSpace(starIndex + 1, e)}
-        />
+        >
+          <SvgStarIcon
+            // Перемещение по странице с помощью клавиши tab
+            tabIndex={isEditable ? 0 : -1}
+            // Задание рейтинга с помощью пробела, когда табом выбрали звезду
+            onKeyDown={(e: KeyboardEvent<SVGAElement>) =>
+              isEditable && handleSpace(starIndex + 1, e)
+            }
+          />
+        </span>
       );
     });
 

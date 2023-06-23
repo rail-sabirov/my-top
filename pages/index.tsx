@@ -2,10 +2,13 @@ import { Inter } from 'next/font/google';
 import { Button, Htag, P, Rating, Tag } from '@/components';
 import { useEffect, useState } from 'react';
 import { withLayout } from '@/layout/Layout';
+import { GetStaticProps } from 'next';
+import axios from 'axios';
+import { MenuItem } from '@/interfaces/menu.interface';
 
 const inter = Inter({ subsets: ['latin'] });
 
-function Home(): JSX.Element {
+function Home({ menu, firstCategory }: HomeProps): JSX.Element {
   const [counter, setCounter] = useState<number>(0);
 
   // Тест: Первоначальный рейтиг
@@ -48,9 +51,52 @@ function Home(): JSX.Element {
       </Tag>
 
       <Rating rating={rating} isEditable setRating={setRating}></Rating>
+
+      <ul>
+        {menu.map((m) => (
+          <li key={m._id.secondCategory}>{m._id.secondCategory}</li>
+        ))}
+      </ul>
     </>
   );
 }
 
 // Оборачиваем основной компонент в обертку HOC
 export default withLayout(Home);
+
+// Получаем значения для страницы
+export const getStaticProps: GetStaticProps = async () => {
+  // Задаем категорию для главной страницы
+  const firstCategory = 0;
+
+  // Получаем ссылку на домен из переменных окружения
+  const domainUrl = process.env.NEXT_PUBLIC_DOMAIN;
+
+  // Используя axios, получим основные категории в data и переименум ее в menu
+  const { data: menu } = await axios.post<MenuItem[]>(
+    process.env.NEXT_PUBLIC_DOMAIN + '/find',
+    {
+      firstCategory,
+    },
+    {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+  );
+
+  // Возвращаем данные для страницы
+  return {
+    props: {
+      menu,
+      firstCategory,
+    },
+  };
+};
+
+// Типизируем полученные данные передаче нашей странице Home
+// Чтобы withLayout не вызывал ошибка, потому как он является типом Record<string, unknown>, расширим наш интерефейс от него
+interface HomeProps extends Record<string, unknown> {
+  menu: MenuItem[];
+  firstCategory: number;
+}

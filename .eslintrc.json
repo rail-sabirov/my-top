@@ -10,11 +10,13 @@
       {
         "allowSingleExtends": true
       }
-    ]
+    ],
+    // Отключаем eslint recommended для рендеринга
+    "eslint:recommended": "off"
   },
   "extends": [
     "next/core-web-vitals",
-    "eslint: recommended",
+    "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:react-hooks/recommended"

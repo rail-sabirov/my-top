@@ -1,4 +1,4 @@
-import { Inter } from 'next/font/google';
+// import { Inter } from 'next/font/google';
 import { Button, Htag, P, Rating, Tag } from '@/components';
 import { useEffect, useState } from 'react';
 import { withLayout } from '@/layout/Layout';
@@ -6,9 +6,9 @@ import { GetStaticProps } from 'next';
 import axios from 'axios';
 import { MenuItem } from '@/interfaces/menu.interface';
 
-const inter = Inter({ subsets: ['latin'] });
+// const inter = Inter({ subsets: ['latin'] });
 
-function Home({ menu, firstCategory }: HomeProps): JSX.Element {
+function Home({ menu }: HomeProps): JSX.Element {
   const [counter, setCounter] = useState<number>(0);
 
   // Тест: Первоначальный рейтиг
@@ -23,12 +23,7 @@ function Home({ menu, firstCategory }: HomeProps): JSX.Element {
     <>
       <Htag tag="h1">{counter}</Htag>
       <Htag tag="h2">rating: {rating}</Htag>
-      <Button
-        appearance="primary"
-        className="my-class"
-        arrow="right"
-        onClick={() => setCounter((x) => x + 1)}
-      >
+      <Button appearance="primary" className="my-class" arrow="right" onClick={() => setCounter((x) => x + 1)}>
         Кнопка
       </Button>
       <Button appearance="ghost" arrow="down">
@@ -44,10 +39,10 @@ function Home({ menu, firstCategory }: HomeProps): JSX.Element {
       <Tag color="green">Tag green</Tag>
       <Tag color="primary">Tag primary</Tag>
       <Tag color="primary" size="s" href="https://test.tst">
-        Tag primary size 'small'
+        Tag primary size Small
       </Tag>
       <Tag color="primary" size="m" href="https://test2.tst">
-        Tag primary size 'medium'
+        Tag primary size Medium
       </Tag>
 
       <Rating rating={rating} isEditable setRating={setRating}></Rating>
@@ -74,7 +69,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   // Используя axios, получим основные категории в data и переименум ее в menu
   const { data: menu } = await axios.post<MenuItem[]>(
-    process.env.NEXT_PUBLIC_DOMAIN + '/find',
+    domainUrl + '/api/top-page/find',
     {
       firstCategory,
     },
